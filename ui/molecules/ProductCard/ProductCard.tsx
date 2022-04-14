@@ -9,7 +9,7 @@ function ProductCard({ item }: { item: TProduct }) {
         {item.avatar ? <img src={item.avatar} className='h-[80px] mx-auto' alt='avatar' />
           : <div>No Avatar</div>}
       </div>
-      <div className='mt-1'>{item.category}</div>
+      <div className='mt-1'>{item.name}</div>
       <div className='text-center mt-1'>${item.price}</div>
     </div>
   );

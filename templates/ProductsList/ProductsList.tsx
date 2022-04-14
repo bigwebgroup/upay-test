@@ -10,6 +10,7 @@ import Link from "next/link";
 
 function ProductsListPage() {
   const router = useRouter();
+  const [products, setProducts] = useState<TProduct[]>([]);
   const [list, setList] = useState<TProduct[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -21,6 +22,7 @@ function ProductsListPage() {
         customAxios.get('/case-study/categories'),
       ])
       if (productsResult.data) {
+        setProducts(productsResult.data)
         setList(productsResult.data)
       }
       if (categoriesResult.data) {
@@ -34,14 +36,30 @@ function ProductsListPage() {
     try {
       await customAxios.delete(`/case-study/products/${productId}`)
         .then(res => {
-          setList(list.filter(_item => _item.id !== productId))
+          setProducts(products.filter(_item => _item.id !== productId))
         })
     } catch (err) {
       console.error({ err })
     }
   }
-  const onChangeCategory = (value: string) => {
-    setSelectedCategory(value)
+  const onSearch = (query: string) => {
+    if (query) {
+      if (selectedCategory) {
+        setList(products.filter(_item => _item.name.toLowerCase().includes(query.toLowerCase()) && _item.category === selectedCategory))
+      } else {
+        setList(products.filter(_item => _item.name.toLowerCase().includes(query.toLowerCase())))
+      }
+    } else {
+      if (selectedCategory) {
+        setList(products.filter(_item => _item.category === selectedCategory))
+      } else {
+        setList(products)
+      }
+    }
+  }
+  const onChangeCategory = (categoryId: string) => {
+    setSelectedCategory(categories.find(_category => _category.id === categoryId).name)
+    setList(products.filter(_product => _product.category === categories.find(_category => _category.id === categoryId).name))
   }
   useEffect(() => {
     getData()
@@ -49,6 +67,11 @@ function ProductsListPage() {
   return (
     <Layout>
       <div className='flex justify-between items-center'>
+        <input
+          className='min-w-[300px] h-[30px] px-[10px] border-gray-100 border-[1px] hover:border-primary-500 rounded-[4px] focus:border-primary-500 focus:shadow-none'
+          placeholder={'Apple Watch, Samsung...'}
+          onChange={e => onSearch(e.target.value)}
+        />
         <Select
           className='bg-white shadow-md rounded-md min-w-[200px] ml-auto'
           placeholder='Categories'
@@ -61,7 +84,7 @@ function ProductsListPage() {
       </div>
       <div className='w-full max-w-[768px] mx-auto pt-10'>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-7">
-          {list && (list.length > 0 ? list.filter(_item => selectedCategory ? _item.category === selectedCategory : 1 === 1).map((_item, _i) =>
+          {list && (list.length > 0 ? list.map((_item, _i) =>
             <div key={_i}>
               <Link href={`/products/${_item.id}`} passHref>
                 <a>

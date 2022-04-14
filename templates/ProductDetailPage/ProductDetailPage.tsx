@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import customAxios from "utils/customAxios";
 import { TProduct } from "utils/types";
 import Layout from "templates/Layout";
-import { IoIosArrowBack } from 'react-icons/io';
+import { BiArrowBack } from 'react-icons/bi';
 
 function ProductDetailPage() {
   const router = useRouter();
@@ -31,7 +31,7 @@ function ProductDetailPage() {
     <Layout>
       <div className=''>
         <button className='h-10 w-10 rounded-full bg-white shadow-sm text-center' onClick={() => router.push('/')}>
-          <IoIosArrowBack size={32} className='mx-auto' />
+          <BiArrowBack size={32} className='mx-auto' />
           </button>
       </div>
       {item &&

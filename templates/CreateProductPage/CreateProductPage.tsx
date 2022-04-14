@@ -12,6 +12,7 @@ function CreateProductPage() {
   const router = useRouter();
   const [categories, setCategories] = useState<any[]>([]);
   const onSubmit = async (values: TProduct) => {
+    values.category = categories.find(_category => _category.id === values.category).name
     customAxios.post('/case-study/products', values)
       .then(res => {
         router.push('/')
