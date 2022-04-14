@@ -6,7 +6,7 @@ import FormInput from "ui/atoms/FormInput";
 import FormTextarea from "ui/atoms/FormTextarea";
 import { TProduct } from "utils/types";
 import customAxios from "utils/customAxios";
-import { IoIosArrowBack } from "react-icons/io";
+import { BiArrowBack } from "react-icons/bi";
 
 function CreateProductPage() {
   const router = useRouter();
@@ -37,10 +37,11 @@ function CreateProductPage() {
     <Layout>
       <div className=''>
         <button className='h-10 w-10 rounded-full bg-white shadow-sm text-center' onClick={() => router.push('/')}>
-          <IoIosArrowBack size={32} className='mx-auto' />
-          </button>
+          <BiArrowBack size={32} className='mx-auto' />
+        </button>
       </div>
       <div className='w-full max-w-[768px] mx-auto pt-10'>
+        <h2 className='font-bold text-2xl text-center mb-7'>Create Product</h2>
         <Form
           onFinish={onSubmit}
           layout='vertical'
@@ -68,7 +69,7 @@ function CreateProductPage() {
             <input type='number' placeholder='Price' className='w-full px-[10px] h-[30px] border-gray-100 border-[1px] hover:border-primary-500 rounded-[4px] focus:border-primary-500 focus:shadow-none' />
           </Form.Item>
           <Form.Item>
-            <button className='px-5 w-full uppercase h-8 rounded-md bg-white' type='submit'>Submit</button>
+            <button className='px-5 w-full uppercase h-8 rounded-md bg-white font-bold' type='submit'>Submit</button>
           </Form.Item>
         </Form>
       </div>

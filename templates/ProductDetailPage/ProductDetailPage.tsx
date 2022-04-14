@@ -43,11 +43,11 @@ function ProductDetailPage() {
             </div>
             <div className='flex flex-col justify-between ml-6'>
               <h2 className='font-bold text-2xl'>{item.name}</h2>
-              <p className=''>${item.price}</p>
+              <p className='font-semibold'>${item.price}</p>
             </div>
           </div>
           <div className='h-[1px] w-full bg-gray-500 my-3' />
-          <h2 className='font-semiBold text-xl'>Description</h2>
+          <h2 className='font-semibold text-xl'>Description</h2>
           <p className=''>{item.description}</p>
         </div>
       }
