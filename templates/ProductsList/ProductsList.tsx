@@ -36,7 +36,7 @@ function ProductsListPage() {
     try {
       await customAxios.delete(`/case-study/products/${productId}`)
         .then(res => {
-          setProducts(products.filter(_item => _item.id !== productId))
+          setList(list.filter(_item => _item.id !== productId))
         })
     } catch (err) {
       console.error({ err })
@@ -68,8 +68,8 @@ function ProductsListPage() {
     <Layout>
       <div className='flex justify-between items-center'>
         <input
-          className='min-w-[300px] h-[30px] px-[10px] border-gray-100 border-[1px] hover:border-primary-500 rounded-[4px] focus:border-primary-500 focus:shadow-none'
-          placeholder={'Apple Watch, Samsung...'}
+          className='min-w-[100px] h-[30px] px-[10px] border-gray-100 border-[1px] hover:border-primary-500 rounded-[4px] focus:border-primary-500 focus:shadow-none mr-2'
+          placeholder={'Search...'}
           onChange={e => onSearch(e.target.value)}
         />
         <Select
